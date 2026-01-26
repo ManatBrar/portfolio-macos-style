@@ -11,6 +11,7 @@ body {
     background-attachment: fixed;
     min-height: 100vh;
     width: 100%;
+    user-select: none;
 }
 
 @utility flex-center {
@@ -91,6 +92,7 @@ body {
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    --shadow-s: inset 0 1px 2px #ffffff30, 0 1px 2px #00000030, 0 2px 4px #00000015;
 }
 
 .dark {
@@ -134,4 +136,12 @@ body {
   body {
     @apply bg-background text-foreground;
     }
+}
+
+.z-top {
+    z-index: 10000;
+}
+
+.shadow-s {
+    box-shadow: var(--shadow-s);
 }

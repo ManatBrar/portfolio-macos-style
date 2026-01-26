@@ -1,11 +1,20 @@
+import Dock from "./components/Dock";
+import Navbar from "./components/Navbar";
+import ContactMeWrapper from "./components/windows/ContactMe";
+import SkillsWrapper from "./components/windows/Skills";
+import { WindowProvider } from "./context/WindowContext";
+
 const App = () => {
   return (
-    <div className="flex items-center justify-center">
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </div>
-  )
-}
+    <main>
+      <WindowProvider>
+        <Navbar />
+        <Dock />
+        <ContactMeWrapper />
+        <SkillsWrapper />
+      </WindowProvider>
+    </main>
+  );
+};
 
-export default App
+export default App;

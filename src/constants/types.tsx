@@ -1,6 +1,9 @@
 export type Window = {
-    isOpen: boolean,
-    zIndex: number,
-    data: any,
-    position?: { x: number, y: number },
-}
+  isOpen: boolean;
+  zIndex: number;
+  data: {
+    position?: { x: number; y: number };
+    width?: number;
+    height?: number;
+  };
+};
