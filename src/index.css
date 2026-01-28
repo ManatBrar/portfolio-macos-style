@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 body {
-    background-image: url("../public//wallpapers/TahoeDay.jpg");
+    background-image: url("../wallpapers/TahoeDay.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;

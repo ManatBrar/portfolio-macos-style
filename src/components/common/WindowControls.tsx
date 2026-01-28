@@ -88,7 +88,7 @@ const WindowControls = ({ windowId, parentRef, positionRef }: Props) => {
         onPointerDown={handleClose}
       >
         {isHovered ? (
-          <img src="/icons/cross.svg" alt="close" className="" />
+          <img src="icons/cross.svg" alt="close" className="" />
         ) : null}
       </div>
       <div
@@ -96,7 +96,7 @@ const WindowControls = ({ windowId, parentRef, positionRef }: Props) => {
         onPointerDown={handleClose}
       >
         {isHovered ? (
-          <img src="/icons/minus.svg" alt="minimize" className="" />
+          <img src="icons/minus.svg" alt="minimize" className="" />
         ) : null}
       </div>
       <div
@@ -105,13 +105,9 @@ const WindowControls = ({ windowId, parentRef, positionRef }: Props) => {
       >
         {isHovered ? (
           currentWindow.data.isFullscreen ? (
-            <img
-              src="/icons/collapse.svg"
-              alt="resize"
-              className="rotate-135"
-            />
+            <img src="icons/collapse.svg" alt="resize" className="rotate-135" />
           ) : (
-            <img src="/icons/resize.svg" alt="resize" className="rotate-135" />
+            <img src="icons/resize.svg" alt="resize" className="rotate-135" />
           )
         ) : null}
       </div>

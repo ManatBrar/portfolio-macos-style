@@ -18,7 +18,7 @@ const Navbar = () => {
     <nav>
       <div className="flex items-center justify-between px-3 py-2 bg-white/50 backdrop-blur-3xl gap-4 z-top">
         <div className="flex-center gap-4">
-          <img src="/images/logo.svg" alt="apple" />
+          <img src="images/logo.svg" alt="apple" />
           <div className="text-m font-bold">{import.meta.env.VITE_TITLE}</div>
           <ul className="flex-center gap-4">
             {navLinks.map((link) => (
@@ -38,7 +38,7 @@ const Navbar = () => {
                 key={icon.id}
                 className="hover:cursor-pointer hover:bg-white/50 rounded-full p-1"
               >
-                <img src={`/icons/${icon.windowId}.svg`} alt={icon.windowId} />
+                <img src={`icons/${icon.windowId}.svg`} alt={icon.windowId} />
               </li>
             ))}
           </ul>
