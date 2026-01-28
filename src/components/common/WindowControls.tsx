@@ -9,7 +9,10 @@ type Props = {
 
 const WindowControls = ({ windowId, parentRef, positionRef }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { closeWindow } = useWindow();
+  const { closeWindow, setPosition, setFullscreen, setDimensions, windows } =
+    useWindow();
+  const currentWindow = windows[windowId] || {};
+
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
     closeWindow(windowId);
@@ -25,19 +28,53 @@ const WindowControls = ({ windowId, parentRef, positionRef }: Props) => {
 
   const handleFullscreen = (e: React.PointerEvent) => {
     e.stopPropagation();
-    const windowHeight = window.innerHeight;
-    const windowWidth = window.innerWidth;
 
-    const windowTop = 0;
-    const windowLeft = 0;
-    const navBarHeight = 40;
+    parentRef.current!.style.transition =
+      "width 0.3s ease-in-out, height 0.3s ease-in-out, transform 0.3s ease-in-out";
 
-    parentRef.current!.style.transform = `translate(${windowLeft}px, ${windowTop}px)`;
-    parentRef.current!.style.width = `${windowWidth}px`;
-    parentRef.current!.style.height = `${windowHeight - navBarHeight}px`;
+    setTimeout(() => {
+      if (parentRef.current) {
+        parentRef.current.style.transition = "";
+      }
+    }, 300);
 
-    positionRef.current.x = windowLeft;
-    positionRef.current.y = windowTop;
+    if (currentWindow?.data?.isFullscreen) {
+      const { position, width, height } = currentWindow.data;
+      if (!position) return;
+
+      parentRef.current!.style.width = `${width}px`;
+      parentRef.current!.style.height = `${height}px`;
+      parentRef.current!.style.transform = `translate(${position.x}px, ${position.y}px)`;
+
+      positionRef.current.x = position.x;
+      positionRef.current.y = position.y;
+
+      setFullscreen(windowId, false);
+    } else {
+      setPosition(windowId, {
+        x: positionRef.current.x,
+        y: positionRef.current.y,
+      });
+      setDimensions(windowId, {
+        width: parentRef.current!.offsetWidth,
+        height: parentRef.current!.offsetHeight,
+      });
+      setFullscreen(windowId, true);
+
+      const windowHeight = window.innerHeight;
+      const windowWidth = window.innerWidth;
+
+      const windowTop = 0;
+      const windowLeft = 0;
+      const navBarHeight = 40;
+
+      parentRef.current!.style.width = `${windowWidth}px`;
+      parentRef.current!.style.height = `${windowHeight - navBarHeight}px`;
+      parentRef.current!.style.transform = `translate(${windowLeft}px, ${windowTop}px)`;
+
+      positionRef.current.x = windowLeft;
+      positionRef.current.y = windowTop;
+    }
   };
 
   return (
@@ -67,7 +104,15 @@ const WindowControls = ({ windowId, parentRef, positionRef }: Props) => {
         onPointerDown={handleFullscreen}
       >
         {isHovered ? (
-          <img src="/icons/resize.svg" alt="resize" className="rotate-45" />
+          currentWindow.data.isFullscreen ? (
+            <img
+              src="/icons/collapse.svg"
+              alt="resize"
+              className="rotate-135"
+            />
+          ) : (
+            <img src="/icons/resize.svg" alt="resize" className="rotate-135" />
+          )
         ) : null}
       </div>
     </div>

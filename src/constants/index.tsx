@@ -67,7 +67,7 @@ export const dockItems = [
   },
 ];
 
-export const INITIAL_WINDOW_Z_INDEX = 1000;
+export const INITIAL_WINDOW_Z_INDEX = 100;
 export const WINDOW_CONFIG: Record<string, Window> = {
   finder: {
     isOpen: false,

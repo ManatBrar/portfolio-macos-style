@@ -5,5 +5,6 @@ export type Window = {
     position?: { x: number; y: number };
     width?: number;
     height?: number;
+    isFullscreen?: boolean;
   };
 };

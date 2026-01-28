@@ -213,7 +213,7 @@ const WindowWrapper = (Component: React.ComponentType, windowId: string) => {
     return (
       <section
         id={windowId}
-        className="absolute bg-white rounded-3xl shadow-s"
+        className="absolute bg-white rounded-xl border border-gray-200 shadow-xl"
         ref={ref}
         style={{
           zIndex,

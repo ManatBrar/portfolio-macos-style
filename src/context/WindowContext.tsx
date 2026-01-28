@@ -17,6 +17,11 @@ type WindowContextType = {
   closeWindow: (windowId: string) => void;
   focusWindow: (windowId: string, data?: any) => void;
   setPosition: (windowId: string, position: { x: number; y: number }) => void;
+  setFullscreen: (windowId: string, isFullscreen: boolean) => void;
+  setDimensions: (
+    windowId: string,
+    dimensions: { width: number; height: number },
+  ) => void;
 };
 
 const WindowProvider = ({ children }: { children: React.ReactNode }) => {
@@ -27,6 +32,7 @@ const WindowProvider = ({ children }: { children: React.ReactNode }) => {
       | "closeWindow"
       | "focusWindow"
       | "setPosition"
+      | "setFullscreen"
       | "setDimensions"
     >
   >({
@@ -116,6 +122,54 @@ const WindowProvider = ({ children }: { children: React.ReactNode }) => {
     [],
   );
 
+  const setFullscreen = useCallback(
+    (windowId: string, isFullscreen: boolean) => {
+      setWindowsConfig((prev) => {
+        const { isOpen } = prev.windows[windowId] || {};
+        if (!isOpen) return prev;
+
+        return {
+          ...prev,
+          windows: {
+            ...prev.windows,
+            [windowId]: {
+              ...prev.windows[windowId],
+              data: {
+                ...prev.windows[windowId].data,
+                isFullscreen,
+              },
+            },
+          },
+        };
+      });
+    },
+    [],
+  );
+
+  const setDimensions = useCallback(
+    (windowId: string, dimensions: { width: number; height: number }) => {
+      setWindowsConfig((prev) => {
+        const { isOpen } = prev.windows[windowId] || {};
+        if (!isOpen) return prev;
+
+        return {
+          ...prev,
+          windows: {
+            ...prev.windows,
+            [windowId]: {
+              ...prev.windows[windowId],
+              data: {
+                ...prev.windows[windowId].data,
+                ...dimensions,
+              },
+            },
+          },
+        };
+      });
+    },
+    [],
+  );
+
   const contextValue = useMemo(
     () => ({
       windows: windowsConfig.windows,
@@ -124,6 +178,8 @@ const WindowProvider = ({ children }: { children: React.ReactNode }) => {
       closeWindow,
       focusWindow,
       setPosition,
+      setDimensions,
+      setFullscreen,
     }),
     [
       windowsConfig.windows,
@@ -132,6 +188,8 @@ const WindowProvider = ({ children }: { children: React.ReactNode }) => {
       closeWindow,
       focusWindow,
       setPosition,
+      setDimensions,
+      setFullscreen,
     ],
   );
 
